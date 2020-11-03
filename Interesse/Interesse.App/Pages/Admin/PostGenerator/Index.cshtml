@@ -1,0 +1,116 @@
+﻿@page
+@model Interesse.App.Pages.Admin.PostGenerator.IndexModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            Генератор постов
+        </h2>
+        <div class="regular_card">
+            <form method="post" enctype="multipart/form-data" class="form">
+                <div class="form-group">
+                    <label class="form-label">
+                        Загрузка изображений
+                    </label>
+                    <div class="form-one-line">
+                        <input type="file" asp-for="Files" multiple />
+                        <button type="submit" class="btn btn-primary">
+                            Добавить
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="templates_wrapper">
+                <div class="templates_wrapper-title">
+                    Выберите шаблон для поста
+                </div>
+                <div class="templates-content">
+                    <div class="row equal">
+                        @foreach (var template in Model.TemplateImages)
+                        {
+                            <div class="col-md-2 col-sm-4">
+                                <div class="template_wrapper">
+                                    <img src="@($"/uploads/templates/{template.Name}")" alt="@template.Name"
+                                         class="template-image" />
+                                    <form method="post" class="form-inline">
+                                        <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="delete"
+                                                asp-route-id="@template.Id" class="btn btn-primary template-delete_btn">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="col-xl-10 offset-xl-1">
+        <div class="regular_card margin-auto">
+            <div class="toolbar">
+                <div class="toolbar-group">
+                    <label class="toolbar-label">
+                        Фильтр
+                    </label>
+                    <select id="post_generator-select-filter" class="form-control">
+                        <option value="dark">
+                            Тёмный
+                        </option>
+                        <option value="light">
+                            Светлый
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="post_generator-wrapper">
+                <div id="post_generator-image_wrapper" class="image_wrapper-dark">
+                    @*<img src="" id="post_generator-image" />*@
+                    <div class="dark-filter"></div>
+                    <div class="light-filter"></div>
+                    <img src="~/img/logo_dark.png" alt="logo" class="post_generator-logo logo-dark" />
+                    <img src="~/img/logo.png" alt="logo" class="post_generator-logo logo-light" />
+                    <div class="post_generator-contact">
+                        <p class="post_generator-contact-phone">
+                            (812) 233-23-88, +7 (911) 008-51-08
+                        </p>
+                        <p class="post_generator-contact-address">
+                            Санкт-Петербург, ул. Введенская, 7
+                            <span>
+                                м. Горьковская, Чкаловская
+                            </span>
+                        </p>
+                    </div>
+                    <div id="post_generator-content-wrapper">
+                        <div id="post_generator-content"></div>
+                    </div>
+                </div>
+                <p id="post_generator-msg">
+                    Шаблон не выбран
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                    Текст
+                </label>
+                <div>
+                    <textarea id="post-generator-text" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="content_page-actions">
+                <a id="post_generator-save" class="btn btn-primary">
+                    Сохранить изображение
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/u2qopzcibtj2urrnr0tz4fcvz5k68m9wu5cwyuiu22p5k7s2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-alpha1/html2canvas.min.js"
+            integrity="sha512-Ih/6Hivj+361PNhdTq03BrGbzCpetyokxTKSqohHw8GSsGD6jGzp4E5Wl8nayPWN3iUpZpfRNE/25q5BuaUd8Q=="
+            crossorigin="anonymous"></script>
+    <script src="~/dist/post-generator.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,54 @@
+﻿@page
+@model Interesse.App.Pages.Admin.Vacancies.IndexModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            Вакансии
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <a asp-page="./Edit" asp-route-id="0" class="btn btn-primary">
+                    Добавить
+                </a>
+                <a asp-page="../Index" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            @if (!Model.Vacancies.Any())
+            {
+                <p class="regular_card-message">
+                    Вакансий ещё нет
+                </p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            @foreach (var vacancy in Model.Vacancies)
+                            {
+                                <tr>
+                                    <td scope="row" class="grey">@vacancy.CreatedDate.ToString("dd.MM.yyyy")</td>
+                                    <td>@vacancy.Title</td>
+                                    <td>@vacancy.Description</td>
+                                    <td class="table-actions">
+                                        <form method="post">
+                                            <a asp-page="./Edit" asp-route-id="@vacancy.Id" class="btn btn-primary">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="delete"
+                                                    asp-route-id="@vacancy.Id" class="btn btn-secondary">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

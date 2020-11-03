@@ -1,0 +1,21 @@
+﻿@using Interesse.Domain.Entities;
+@model List<PageCategory>
+
+@foreach (var category in Model)
+{
+    <section class="section">
+        <div class="row">
+            <div class="@(category.RenderType == CategoryRenderType.Post ? "col-12" : "col-xl-8 offset-xl-2")">
+                <h2 class="section-title">
+                    @category.Title
+                </h2>
+                @await Component.InvokeAsync("HomeCategoryPages", new { categoryId = category.Id, pagesCount = category.ShowHomeCount, renderType = category.RenderType })
+                <div class="section-actions">
+                    <a href="/category/@category.Url" class="btn btn-primary btn-max">
+                        Показать больше
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

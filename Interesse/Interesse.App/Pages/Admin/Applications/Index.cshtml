@@ -1,0 +1,68 @@
+﻿@page
+@model Interesse.App.Pages.Admin.Applications.IndexModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            Записи
+        </h2>
+        <div class="row equal">
+            @foreach (var app in Model.Applications)
+            {
+                <div class="col-md-4 col-sm-12">
+                    <div class="regular_card application_item @(app.IsRead ? "" : "read") @(app.IsSuccess ? "success" : "")">
+                        <div class="application_item-actions">
+                            @if (!app.IsRead)
+                            {
+                                <form method="post" class="form-inline">
+                                    <button type="submit" asp-page-handler="read"
+                                            asp-route-id="@app.Id" class="btn btn-primary" title="Прочитано">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+                            }
+                            @if (!app.IsSuccess)
+                            {
+                                <form method="post" class="form-inline">
+                                    <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="success"
+                                            asp-route-id="@app.Id" class="btn btn-primary" title="Успешно">
+                                        <i class="fas fa-thumbs-up"></i>
+                                    </button>
+                                </form>
+                            }
+                            <form method="post" class="form-inline">
+                                <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="delete"
+                                        asp-route-id="@app.Id" class="btn btn-secondary" title="Удалить">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <span class="application_item-date">
+                            @app.CreatedDate.ToString("dd.MM.yyyy HH:mm")
+                        </span>
+                        <p class="application_item-type">
+                            @app.Type
+                        </p>
+                        <p class="application_item-name">
+                            @app.Name
+                        </p>
+                        <p class="application_item-phone">
+                            @app.Phone.ToString("+# (###) ###-##-##")
+                        </p>
+                        <p class="application_item-comment">
+                            @app.Comment
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        @if (!Model.Applications.Any())
+        {
+            <div class="regular_card">
+                <p class="regular_card-message">
+                    Записей ещё нет
+                </p>
+            </div>
+        }
+    </div>
+</div>

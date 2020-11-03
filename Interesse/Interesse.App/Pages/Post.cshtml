@@ -1,0 +1,22 @@
+﻿@page "{id:int}"
+@model Interesse.App.Pages.PostModel
+@{
+    ViewData["Title"] = Model.Post.Title;
+    ViewData["Description"] = Model.Post.MetaDescription;
+    ViewData["Keywords"] = Model.Post.MetaKeywords;
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <div class="regular_card">
+                <span class="post-date">
+                    @Model.Post.CreatedDate.ToString("dd.MM.yyyy")
+                </span>
+                <div class="post-text">
+                    @Html.Raw(Model.Post.Text)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,50 @@
+﻿@model (List<Interesse.Domain.Entities.Post>, bool)
+
+<section class="section">
+    @if (!Model.Item2)
+    {
+        <h2 class="section-title">
+            Новости
+        </h2>
+    }
+    <div class="row">
+        @foreach (var post in Model.Item1)
+        {
+            <div class="col-xl-6">
+                <div class="post">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@(String.IsNullOrEmpty(post.PreviewImage) ? "/img/logo_grey.png" : $"/uploads/news/{post.PreviewImage}")" alt="@post.Title"
+                                 class="@("post-image " + (String.IsNullOrEmpty(post.PreviewImage) ? "image-contain" : "image-cover"))" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="post-content">
+                                <p class="post-title">
+                                    @post.Title
+                                </p>
+                                <p class="post-subtitle">
+                                    @post.Subtitle
+                                </p>
+                                <span class="post-date">
+                                    @post.CreatedDate.ToString("dd.MM.yyyy")
+                                </span>
+                                <a asp-page="/Post" asp-route-id="@post.Id" class="btn btn-primary post-btn">
+                                    Подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @if (!Model.Item2)
+    {
+        <div class="section-actions">
+            <a asp-page="/News" class="btn btn-primary btn-max">
+                Все новости
+            </a>
+        </div>
+    }
+</section>
+

@@ -1,0 +1,24 @@
+﻿@model List<Interesse.Domain.Entities.Teacher>
+
+<section class="section">
+    <div class="row equal">
+        @foreach (var teacher in Model)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="teacher">
+                    <img src="@(String.IsNullOrEmpty(teacher.Photo) ? "/img/logo_grey.png" : $"/uploads/teachers/{teacher.Photo}")" alt="@teacher.Name"
+                         class="@("teacher-photo image-contain")" />
+                    <p class="teacher-name">
+                        @teacher.Name
+                    </p>
+                    <p class="teacher-position">
+                        @teacher.Position
+                    </p>
+                    <p class="teacher-description">
+                        @teacher.Description
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</section>

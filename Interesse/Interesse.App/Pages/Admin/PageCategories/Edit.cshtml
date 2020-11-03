@@ -1,0 +1,162 @@
+﻿@page "/admin/categories/{id}"
+@model Interesse.App.Pages.Admin.PageCategories.EditModel
+@using Interesse.Domain.Entities
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            @(Model.PageCategory.Id == 0 ? @"Новая группа" : $"Группа: {Model.PageCategory.Title}")
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <button type="submit" form="pageCategoryForm" class="btn btn-primary">
+                    Сохранить
+                </button>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            <form id="pageCategoryForm" method="post" enctype="multipart/form-data" class="form">
+                <input asp-for="PageCategory.Id" type="hidden" />
+                <input asp-for="PageCategory.PreviewImage" type="hidden" />
+                <input asp-for="PageCategory.CreatedDate" type="hidden" />
+                <input asp-for="PageCategory.Sort" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="PageCategory.Url" class="form-label">
+                        URL <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="PageCategory.Url" class="form-control" />
+                        <span asp-validation-for="PageCategory.Url"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PageCategory.Title" class="form-label">
+                        Заголовок <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="PageCategory.Title" class="form-control" />
+                        <span asp-validation-for="PageCategory.Title"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PageCategory.Description" class="form-label">
+                        Превью-текст
+                    </label>
+                    <div>
+                        <input asp-for="PageCategory.Description" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Изображение (превью)
+                            </label>
+                            <div>
+                                <input type="file" asp-for="PageCategory.File" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-image-wrapper">
+                            <label class="form-label">
+                                Старое изображение
+                            </label>
+                            <div>
+                                <img src="@(String.IsNullOrEmpty(Model.PageCategory.PreviewImage) ? "/img/logo_grey.png" : $"/uploads/pages/{Model.PageCategory.PreviewImage}")" alt="@Model.PageCategory.Title"
+                                     class="@("form-image " + (String.IsNullOrEmpty(Model.PageCategory.PreviewImage) ? "image-contain" : "image-cover"))" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PageCategory.RenderType" class="form-label">
+                        Внешний вид отображения страниц
+                    </label>
+                    <div>
+                        <select asp-for="PageCategory.RenderType" asp-items="Html.GetEnumSelectList<CategoryRenderType>()" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PageCategory.ShowHomeCount" class="form-label">
+                        Отображать раздел на главной
+                    </label>
+                    <div>
+                        <select asp-for="PageCategory.ShowHomeCount" class="form-control">
+                            <option value="0">
+                                Не отображать
+                            </option>
+                            <option value="3">
+                                Отображать 3 страницы
+                            </option>
+                            <option value="4">
+                                Отображать 4 страницы
+                            </option>
+                            <option value="6">
+                                Отображать 6 страниц
+                            </option>
+                            <option value="8">
+                                Отображать 8 страниц
+                            </option>
+                            <option value="9">
+                                Отображать 9 страниц
+                            </option>
+                            <option value="10">
+                                Отображать 10 страниц
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="PageCategory.ShowOnMainMenu">
+                            <input asp-for="PageCategory.ShowOnMainMenu" />
+                            Отображать в главном меню
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="PageCategory.ShowOnMenuDropdown">
+                            <input asp-for="PageCategory.ShowOnMenuDropdown" />
+                            Отображать в разделе "Обучение" главного меню
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="PageCategory.IsActive">
+                            <input asp-for="PageCategory.IsActive" />
+                            Страница активна
+                        </label>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        <label asp-for="PageCategory.MetaTitle" class="form-label">
+                            Заголовок страницы
+                        </label>
+                        <div>
+                            <input asp-for="PageCategory.MetaTitle" class="form-control" />
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    <label asp-for="PageCategory.MetaKeywords" class="form-label">
+                        Ключевые слова
+                    </label>
+                    <div>
+                        <input asp-for="PageCategory.MetaKeywords" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PageCategory.MetaDescription" class="form-label">
+                        Описание страницы
+                    </label>
+                    <div>
+                        <input asp-for="PageCategory.MetaDescription" class="form-control" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

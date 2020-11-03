@@ -1,0 +1,75 @@
+﻿@page
+@model Interesse.App.Pages.Admin.Reviews.EditModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            @(Model.Review.Id == 0 ? @"Новый отзыв" : $"Отзыв: {Model.Review.Name}")
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <button type="submit" form="reviewForm" class="btn btn-primary">
+                    Сохранить
+                </button>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            <form id="reviewForm" method="post" enctype="multipart/form-data" class="form">
+                <input asp-for="Review.Id" type="hidden" />
+                <input asp-for="Review.Photo" type="hidden" />
+                <input asp-for="Review.IsApproved" type="hidden" />
+                <input asp-for="Review.CreatedDate" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Review.Name" class="form-label">
+                        Имя <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="Review.Name" class="form-control" />
+                        <span asp-validation-for="Review.Name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Review.Description" class="form-label">
+                        Краткое описание <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="Review.Description" class="form-control" />
+                        <span asp-validation-for="Review.Description"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Изображение (превью)
+                            </label>
+                            <div>
+                                <input type="file" asp-for="Review.File" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-image-wrapper">
+                            <label class="form-label">
+                                Старое изображение
+                            </label>
+                            <div>
+                                <img src="@(String.IsNullOrEmpty(Model.Review.Photo) ? "/img/logo_grey.png" : $"/uploads/reviews/{Model.Review.Photo}")" alt="@(Model.Review.Name)"
+                                     class="@("form-image " + (String.IsNullOrEmpty(Model.Review.Photo) ? "image-contain" : "image-cover"))" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Review.Text" class="form-label">
+                        Текст <span>*</span>
+                    </label>
+                    <div>
+                        <textarea asp-for="Review.Text" class="form-control"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

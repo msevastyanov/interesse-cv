@@ -1,0 +1,54 @@
+﻿@page
+@model Interesse.App.Pages.Admin.Pages.IndexModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            Страницы
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <a asp-page="./Edit" asp-route-id="0" class="btn btn-primary">
+                    Добавить
+                </a>
+                <a asp-page="../Index" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            @if (!Model.Pages.Any())
+            {
+                <p class="regular_card-message">
+                    Страниц ещё нет
+                </p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            @foreach (var pageItem in Model.Pages)
+                            {
+                                <tr>
+                                    <td scope="row" class="grey">@pageItem.CreatedDate.ToString("dd.MM.yyyy")</td>
+                                    <td>@pageItem.Title</td>
+                                    <td>@pageItem.Description</td>
+                                    <td class="table-actions">
+                                        <form method="post" class="form-inline">
+                                            <a asp-page="./Edit" asp-route-id="@pageItem.Id" class="btn btn-primary">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="delete"
+                                                    asp-route-id="@pageItem.Id" class="btn btn-secondary">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

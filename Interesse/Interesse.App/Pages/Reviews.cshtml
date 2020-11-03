@@ -1,0 +1,7 @@
+﻿@page
+@model Interesse.App.Pages.ReviewsModel
+@{
+    ViewData["Title"] = "Отзывы";
+}
+
+@await Component.InvokeAsync("Reviews", new { allReviews = true })

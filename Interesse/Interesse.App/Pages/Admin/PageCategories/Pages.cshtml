@@ -1,0 +1,99 @@
+﻿@page "/admin/categories/{categoryId}/pages"
+@model Interesse.App.Pages.Admin.PageCategories.PagesModel
+@using Interesse.Domain.Entities;
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            @($"{Model.PageCategory.Title}: страницы")
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <a asp-page="./PageEdit" asp-route-categoryId="@Model.PageCategory.Id" asp-route-id="0" class="btn btn-primary">
+                    Добавить страницу
+                </a>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            @*@if (Model.PagesWithoutCategory.Any())
+                {
+                    <form method="post" class="form">
+                        <div class="form-group">
+                            <label asp-for="SelectedPageId" class="form-label">
+                                Существующие страницы
+                            </label>
+                            <div class="form-one-line">
+                                <select asp-for="SelectedPageId" class="form-control">
+                                    @foreach (var pageItem in Model.PagesWithoutCategory)
+                                    {
+                                        <option value="@pageItem.Id">
+                                            @pageItem.Title
+                                        </option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-secondary">
+                                    Включить страницу в раздел
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                }*@
+            @if (!Model.CategoryPages.Any())
+            {
+                <p class="regular_card-message">
+                    Страниц ещё нет
+                </p>
+            }
+            else
+            {
+                <table class="table table-bordered">
+                    <tbody>
+                        @{
+                            var firstPageId = Model.CategoryPages.First()?.Id;
+                            var lastPageId = Model.CategoryPages.Last()?.Id;
+                            var modelList = Model.PageCategory.RenderType == CategoryRenderType.Course ?
+                                Model.CategoryPages.OrderBy(x => x.Sort) :
+                                Model.CategoryPages.OrderByDescending(x => x.CreatedDate);
+                        }
+                        @foreach (var pageItem in modelList)
+                        {
+                            <tr>
+                                <td scope="row">@pageItem.CreatedDate.ToString("dd.MM.yyyy")</td>
+                                <td>@pageItem.Title</td>
+                                <td>@pageItem.Description</td>
+                                <td class="table-actions">
+                                    @if (Model.PageCategory.RenderType == CategoryRenderType.Course)
+                                    {
+                                        <form method="post" class="form-inline">
+                                            <button type="submit" asp-route-id="@pageItem.Id" asp-page-handler="moveUp" disabled="@(pageItem.Id == firstPageId)" class="btn btn-secondary">
+                                                <i class="fas fa-chevron-up"></i>
+                                            </button>
+                                            <button type="submit" asp-route-id="@pageItem.Id" asp-page-handler="moveDown" disabled="@(pageItem.Id == lastPageId)" class="btn btn-secondary">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    <form method="post" class="form-inline">
+                                        <a asp-page="./PageEdit" asp-route-categoryId="@Model.PageCategory.Id" asp-route-id="@pageItem.Id" class="btn btn-primary">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="removeFromCategory"
+                                                asp-route-pageId="@pageItem.Id" class="btn btn-secondary" title="Убрать из раздела">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="delete"
+                                                asp-route-pageId="@pageItem.Id" class="btn btn-secondary">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+

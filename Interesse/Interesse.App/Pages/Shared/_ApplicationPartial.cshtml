@@ -1,0 +1,53 @@
+﻿@model string
+
+<a href="#" class="btn btn-primary header_main-btn" data-toggle="modal" data-target="#applicationModal">
+    Записаться
+</a>
+
+<div class="modal fade" id="applicationModal" tabindex="-1" role="dialog" aria-labelledby="applicationModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applicationModalTitle">
+                    Запишитесь на обучение!
+                </h5>
+                <button id="app-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="application-text">
+                    Тестирование и пробный урок <br /> <span>бесплатно</span>
+                </p>
+                <form method="post" enctype="multipart/form-data" id="app-form" class="form">
+                    <div class="form-group">
+                        <div>
+                            <input id="app-name" type="text" placeholder="Имя" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input id="app-phone" type="text" placeholder="Телефон" class="form-control phone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <textarea id="app-comment" type="text" placeholder="Комментарий" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <p id="app-error" class="application-error"></p>
+                <p id="app-success" class="application-success"></p>
+                <p id="app-type" data-type="@Model"></p>
+            </div>
+            <div id="app-actions" class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Закрыть
+                </button>
+                <button id="send-app" type="button" class="btn btn-primary">
+                    Оставьте заявку!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

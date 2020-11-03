@@ -1,0 +1,163 @@
+﻿@page "/admin/categories/{categoryId}/pages/{id}"
+@model Interesse.App.Pages.Admin.PageCategories.PageEditModel
+@{
+}
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            @(Model.Page.Id == 0 ? @"Новая страница" : $"Страница: {Model.Page.Title}")
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <button type="submit" form="pageForm" class="btn btn-primary">
+                    Сохранить
+                </button>
+                <a asp-page="./Pages" asp-route-categoryId="@Model.CategoryId" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            <form id="pageForm" method="post" enctype="multipart/form-data" class="form">
+                <input asp-for="Page.Id" type="hidden" />
+                <input asp-for="Page.PreviewImage" type="hidden" />
+                <input asp-for="Page.CreatedDate" type="hidden" />
+                <input asp-for="Page.Sort" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Page.Url" class="form-label">
+                        URL <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="Page.Url" class="form-control" />
+                        <span asp-validation-for="Page.Url"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Page.Title" class="form-label">
+                        Заголовок <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="Page.Title" class="form-control" />
+                        <span asp-validation-for="Page.Title"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Page.Description" class="form-label">
+                        Превью-текст
+                    </label>
+                    <div>
+                        <input asp-for="Page.Description" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Изображение (превью)
+                            </label>
+                            <div>
+                                <input type="file" asp-for="Page.File" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-image-wrapper">
+                            <label class="form-label">
+                                Старое изображение
+                            </label>
+                            <div>
+                                <img src="@(String.IsNullOrEmpty(Model.Page.PreviewImage) ? "/img/logo_grey.png" : $"/uploads/pages/{Model.Page.PreviewImage}")" alt="@Model.Page.Title"
+                                     class="@("form-image " + (String.IsNullOrEmpty(Model.Page.PreviewImage) ? "image-contain" : "image-cover"))" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Page.Text" class="form-label">
+                        Текст <span>*</span>
+                    </label>
+                    <div>
+                        <textarea asp-for="Page.Text" id="tiny" class="form-control"></textarea>
+                        <span asp-validation-for="Page.Text"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Page.IsAlignCenter">
+                            <input asp-for="Page.IsAlignCenter" />
+                            Выравнивать содержимое страницы по центру
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Page.ShowOnMainMenu">
+                            <input asp-for="Page.ShowOnMainMenu" />
+                            Отображать в главном меню
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Page.ShowOnMenuDropdown">
+                            <input asp-for="Page.ShowOnMenuDropdown" />
+                            Отображать в разделе "Обучение" главного меню
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Page.IsApplicationOn">
+                            <input asp-for="Page.IsApplicationOn" />
+                            Отображать кнопку "Записаться"
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Page.IsActive">
+                            <input asp-for="Page.IsActive" />
+                            Страница активна
+                        </label>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        <label asp-for="Page.MetaTitle" class="form-label">
+                            Заголовок страницы
+                        </label>
+                        <div>
+                            <input asp-for="Page.MetaTitle" class="form-control" />
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    <label asp-for="Page.MetaKeywords" class="form-label">
+                        Ключевые слова
+                    </label>
+                    <div>
+                        <input asp-for="Page.MetaKeywords" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Page.MetaDescription" class="form-label">
+                        Описание страницы
+                    </label>
+                    <div>
+                        <input asp-for="Page.MetaDescription" class="form-control" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/u2qopzcibtj2urrnr0tz4fcvz5k68m9wu5cwyuiu22p5k7s2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#tiny',
+            plugins: 'autolink lists media table textpattern image',
+            toolbar: 'code table insert forecolor',
+            toolbar_mode: 'floating',
+            height: 500,
+        });
+    </script>
+}

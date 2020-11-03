@@ -1,0 +1,26 @@
+﻿@page
+@model Interesse.App.Pages.GalleryModel
+@{
+    ViewData["Title"] = "Галерея";
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <div class="regular_card">
+                <div class="gallery-carousel">
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <div>
+                            <img src="@($"/uploads/gallery/{photo.Name}")" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/gallery.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,41 @@
+﻿@page
+@model Interesse.App.Pages.Admin.Vacancies.EditModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            @(Model.Vacancy.Id == 0 ? @"Новая вакансия" : $"Вакансия: {Model.Vacancy.Title}")
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <button type="submit" form="vacancyForm" class="btn btn-primary">
+                    Сохранить
+                </button>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            <form id="vacancyForm" method="post" enctype="multipart/form-data" class="form">
+                <input asp-for="Vacancy.Id" type="hidden" />
+                <input asp-for="Vacancy.CreatedDate" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Vacancy.Title" class="form-label">
+                        Должность <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="Vacancy.Title" class="form-control" />
+                        <span asp-validation-for="Vacancy.Title"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Vacancy.Description" class="form-label">
+                        Описание
+                    </label>
+                    <div>
+                        <textarea asp-for="Vacancy.Description" class="form-control"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

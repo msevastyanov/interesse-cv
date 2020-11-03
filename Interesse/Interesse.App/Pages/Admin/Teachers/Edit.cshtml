@@ -1,0 +1,75 @@
+﻿@page
+@model Interesse.App.Pages.Admin.Teachers.EditModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            @(Model.Teacher.Id == 0 ? @"Новый преподаватель" : $"Преподаватель: {Model.Teacher.Name}")
+        </h2>
+        <div class="regular_card">
+            <div class="regular_card-actions">
+                <button type="submit" form="teacherForm" class="btn btn-primary">
+                    Сохранить
+                </button>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    Назад
+                </a>
+            </div>
+            <form id="teacherForm" method="post" enctype="multipart/form-data" class="form">
+                <input asp-for="Teacher.Id" type="hidden" />
+                <input asp-for="Teacher.Photo" type="hidden" />
+                <input asp-for="Teacher.Sort" type="hidden" />
+                <input asp-for="Teacher.CreatedDate" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Teacher.Name" class="form-label">
+                        Имя <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="Teacher.Name" class="form-control" />
+                        <span asp-validation-for="Teacher.Name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Teacher.Position" class="form-label">
+                        Позиция <span>*</span>
+                    </label>
+                    <div>
+                        <input asp-for="Teacher.Position" class="form-control" />
+                        <span asp-validation-for="Teacher.Position"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Изображение (превью)
+                            </label>
+                            <div>
+                                <input type="file" asp-for="Teacher.File" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-image-wrapper">
+                            <label class="form-label">
+                                Старое изображение
+                            </label>
+                            <div>
+                                <img src="@(String.IsNullOrEmpty(Model.Teacher.Photo) ? "/img/logo_grey.png" : $"/uploads/teachers/{Model.Teacher.Photo}")" alt="@Model.Teacher.Name"
+                                     class="@("form-image " + (String.IsNullOrEmpty(Model.Teacher.Photo) ? "image-contain" : "image-cover"))" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Teacher.Description" class="form-label">
+                        Описание
+                    </label>
+                    <div>
+                        <textarea asp-for="Teacher.Description" class="form-control"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@page
+@model Interesse.App.Pages.Admin.Gallery.IndexModel
+
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <h2 class="section-title">
+            Галерея
+        </h2>
+        <div class="regular_card">
+            <form method="post" enctype="multipart/form-data" class="form">
+                <div class="form-group">
+                    <label class="form-label">
+                        Загрузка изображений
+                    </label>
+                    <div class="form-one-line">
+                        <input type="file" asp-for="Files" multiple />
+                        <button type="submit" class="btn btn-primary">
+                            Добавить
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                @foreach (var photo in Model.Photos)
+                {
+                    <div class="col-md-3 col-sm-6">
+                        <div class="photo_wrapper">
+                            <img src="@($"/uploads/gallery/{photo.Name}")" alt="@photo.Name"
+                                 class="photo-image" />
+                            <form method="post" class="form-inline">
+                                <button type="submit" onclick="return confirm('Вы уверены?');" asp-page-handler="delete"
+                                        asp-route-id="@photo.Id" class="btn btn-primary photo-delete_btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

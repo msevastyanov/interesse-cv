@@ -1,0 +1,127 @@
+﻿@model (List<Interesse.Domain.Entities.PageCategory>, List<Interesse.Domain.Entities.Page>)
+
+<header class="header_main header_secondary">
+    <div class="header_main-back">
+        <div class="header_main-carousel">
+            <div>
+                <img src="~/img/header/header_1.jpg" />
+            </div>
+            <div>
+                <img src="~/img/header/header_2.jpg" />
+            </div>
+            <div>
+                <img src="~/img/header/header_3.jpg" />
+            </div>
+            <div>
+                <img src="~/img/header/header_4.jpg" />
+            </div>
+        </div>
+    </div>
+    <nav class="header_main-nav navbar navbar-expand-md navbar-toggleable-md navbar-light box-shadow mb-3">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Index">
+                            Главная
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Обучение
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach (var pageCategoryItem in Model.Item1.Where(x => x.ShowOnMenuDropdown))
+                            {
+                                <a class="dropdown-item" href="/category/@pageCategoryItem.Url">
+                                    @pageCategoryItem.Title
+                                </a>
+                            }
+                            @foreach (var pageItem in Model.Item2.Where(x => x.ShowOnMenuDropdown))
+                            {
+                                <a class="dropdown-item" href="/@pageItem.Url">
+                                    @pageItem.Title
+                                </a>
+                            }
+                        </div>
+                    </li>
+                    @foreach (var pageCategoryItem in Model.Item1.Where(x => x.ShowOnMainMenu))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/category/@pageCategoryItem.Url">
+                                @pageCategoryItem.Title
+                            </a>
+                        </li>
+                    }
+                    @foreach (var pageItem in Model.Item2.Where(x => x.ShowOnMainMenu))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/@pageItem.Url">
+                                @pageItem.Title
+                            </a>
+                        </li>
+                    }
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            О нас
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-page="/Teachers">
+                                Преподаватели
+                            </a>
+                            <a class="dropdown-item" asp-page="/Reviews">
+                                Отзывы
+                            </a>
+                            <a class="dropdown-item" asp-page="/Gallery">
+                                Галерея
+                            </a>
+                            <a class="dropdown-item" asp-page="/Vacancies">
+                                Вакансии
+                            </a>
+                        </div>
+                    </li>
+                    @await Html.PartialAsync("~/Pages/Shared/_LoginPartial.cshtml")
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="header_main-contact">
+        <p class="header_main-contact-city">
+            Санкт-Петербург
+        </p>
+        <a href="#" class="header_main-contact-phone">
+            (812) 233-23-88
+        </a>
+        <a href="#" class="header_main-contact-phone">
+            +7 (911) 008-51-08
+        </a>
+        <a href="#" class="header_main-contact-email">
+            interesse-school@mail.ru
+        </a>
+        <p class="header_main-contact-address">
+            ул. Введенская, д. 7 <br /> (м. Горьковская, Чкаловская)
+        </p>
+    </div>
+    <div class="header_main-social">
+        <a href="https://vk.com/kursy_nemeckogo_yazyka_spb" target="_blank">
+            <i class="fab fa-vk"></i>
+        </a>
+        <a href="https://www.instagram.com/_inter.esse_/" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    <div class="header_main-content">
+        <div class="header_main-logo-wrapper">
+            <a asp-page="/Index">
+                <img src="~/img/logo_dark.png" alt="logo" class="header_main-logo" />
+            </a>
+        </div>
+        <h1 class="header_main-title">
+            @ViewData["Title"]
+        </h1>
+    </div>
+</header>

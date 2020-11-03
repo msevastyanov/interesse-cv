@@ -1,0 +1,57 @@
+﻿@using Interesse.Domain.Entities;
+@model (List<Page>, CategoryRenderType)
+
+<div class="row equal">
+    @if (Model.Item2 == CategoryRenderType.Course)
+    {
+        @foreach (var pageItem in Model.Item1)
+        {
+            <div class="col-md-4 col-sm-6">
+                <a href="/@pageItem.Url" class="main_course-link">
+                    <div class="main_course">
+                        <img src="@(String.IsNullOrEmpty(pageItem.PreviewImage) ? "/img/logo_grey.png" : $"/uploads/pages/{pageItem.PreviewImage}")" alt="@pageItem.Title"
+                             class="@("content_page-image image-contain")" />
+                        <p class="main_course-name">
+                            @pageItem.Title
+                        </p>
+                        <p class="main_course-description">
+                            @pageItem.Description
+                        </p>
+                    </div>
+                </a>
+            </div>
+        }
+    }
+    else
+    {
+        @foreach (var pageItem in Model.Item1.OrderByDescending(x => x.CreatedDate))
+        {
+            <div class="col-xl-6">
+                <div class="post">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@(String.IsNullOrEmpty(pageItem.PreviewImage) ? "/img/logo_grey.png" : $"/uploads/pages/{pageItem.PreviewImage}")" alt="@pageItem.Title"
+                                 class="@("post-image " + (String.IsNullOrEmpty(pageItem.PreviewImage) ? "image-contain" : "image-cover"))" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="post-content">
+                                <p class="post-title">
+                                    @pageItem.Title
+                                </p>
+                                <p class="post-subtitle">
+                                    @pageItem.Description
+                                </p>
+                                <span class="post-date">
+                                    @pageItem.CreatedDate.ToString("dd.MM.yyyy")
+                                </span>
+                                <a href="/@pageItem.Url" class="btn btn-primary post-btn">
+                                    Подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

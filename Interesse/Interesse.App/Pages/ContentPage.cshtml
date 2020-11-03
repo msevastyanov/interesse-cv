@@ -1,0 +1,60 @@
+﻿@page "{url}"
+@model Interesse.App.Pages.ContentPageModel
+@{
+    ViewData["Title"] = Model.Page.Title;
+    ViewData["Description"] = Model.Page.MetaDescription;
+    ViewData["Keywords"] = Model.Page.MetaKeywords;
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <div class="regular_card content_page @(Model.Page.IsAlignCenter ? "content_page-center" : "")">
+                <h2 class="content_page-preview">
+                    @Model.Page.Description
+                </h2>
+                @if (!String.IsNullOrEmpty(Model.Page.PreviewImage))
+                {
+                    <div class="content_page-image_wrapper">
+                        <img src="@($"/uploads/pages/{Model.Page.PreviewImage}")" alt="@Model.Page.Title"
+                             class="content_page-image image-contain" />
+                    </div>
+                }
+                <div class="content_page-text">
+                    @Html.Raw(Model.Page.Text)
+                </div>
+                @if (Model.Page.IsApplicationOn)
+                {
+                    <div class="content_page-actions">
+                        @await Html.PartialAsync("~/Pages/Shared/_ApplicationPartial.cshtml", Model.Page.Title)
+                    </div>
+                }
+                <div class="regular_card-social">
+                    <!-- Put this script tag to the <head> of your page -->
+                    <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
+
+                    <!-- Put this script tag to the place, where the Share button will be -->
+                    <script type="text/javascript">
+<!--
+                        document.write(VK.Share.button(false, { type: "round", text: "Поделиться" }));
+                        --></script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @if (Model.Page.IsApplicationOn)
+    {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"
+                integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw=="
+                crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function () {
+                $(".phone").mask("+7 (999) 999-9999");
+            });
+        </script>
+        <script src="~/dist/application.js" asp-append-version="true"></script>
+    }
+}

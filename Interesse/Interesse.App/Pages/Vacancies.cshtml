@@ -1,0 +1,23 @@
+﻿@page
+@model Interesse.App.Pages.VacanciesModel
+@{
+    ViewData["Title"] = "Вакансии";
+}
+
+<section class="section">
+    <div class="row">
+        @foreach (var vacancy in Model.Vacancies)
+        {
+            <div class="col-md-6 offset-md-3">
+                <div class="vacancy">
+                    <p class="vacancy-title">
+                        @vacancy.Title
+                    </p>
+                    <p class="vacancy-description">
+                        @vacancy.Description
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</section>

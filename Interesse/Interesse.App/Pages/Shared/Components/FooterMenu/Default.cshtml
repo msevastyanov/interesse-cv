@@ -1,0 +1,83 @@
+﻿@model (List<Interesse.Domain.Entities.PageCategory>, List<Interesse.Domain.Entities.Page>)
+
+<div class="row">
+    <div class="col-md-6 col-lg-12 col-xl-6">
+        <ul class="footer-menu">
+            <li class="footer-menu-item">
+                <a class="footer-menu-link" asp-page="/Index">
+                    Главная
+                </a>
+            </li>
+            <li class="footer-menu-item">
+                <a class="footer-submenu-title">
+                    Обучение
+                </a>
+                <ul class="footer-submenu">
+                    @foreach (var pageCategoryItem in Model.Item1.Where(x => x.ShowOnMenuDropdown))
+                    {
+                        <li class="footer-submenu-item">
+                            <a class="footer-submenu-link" href="/category/@pageCategoryItem.Url">
+                                @pageCategoryItem.Title
+                            </a>
+                        </li>
+                    }
+                    @foreach (var pageItem in Model.Item2.Where(x => x.ShowOnMenuDropdown))
+                    {
+                        <li class="footer-submenu-item">
+                            <a class="footer-submenu-link" href="/@pageItem.Url">
+                                @pageItem.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6 col-lg-12 col-xl-6">
+        <ul class="footer-menu">
+            @foreach (var pageCategoryItem in Model.Item1.Where(x => x.ShowOnMainMenu))
+            {
+                <li class="footer-menu-item">
+                    <a class="footer-menu-link" href="/category/@pageCategoryItem.Url">
+                        @pageCategoryItem.Title
+                    </a>
+                </li>
+            }
+            @foreach (var pageItem in Model.Item2.Where(x => x.ShowOnMainMenu))
+            {
+                <li class="footer-menu-item">
+                    <a class="footer-menu-link" href="/@pageItem.Url">
+                        @pageItem.Title
+                    </a>
+                </li>
+            }
+            <li class="footer-menu-item">
+                <a class="footer-submenu-title">
+                    О нас
+                </a>
+                <ul class="footer-submenu">
+                    <li class="footer-submenu-item">
+                        <a class="footer-submenu-link" asp-page="/Teachers">
+                            Преподаватели
+                        </a>
+                    </li>
+                    <li class="footer-submenu-item">
+                        <a class="footer-submenu-link" asp-page="/Reviews">
+                            Отзывы
+                        </a>
+                    </li>
+                    <li class="footer-submenu-item">
+                        <a class="footer-submenu-link" asp-page="/Gallery">
+                            Галерея
+                        </a>
+                    </li>
+                    <li class="footer-submenu-item">
+                        <a class="footer-submenu-link" asp-page="/Vacancies">
+                            Вакансии
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

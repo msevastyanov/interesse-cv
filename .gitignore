@@ -1,0 +1,7 @@
+.idea
+.vs
+.config
+bin
+obj
+uploads/
+dist/

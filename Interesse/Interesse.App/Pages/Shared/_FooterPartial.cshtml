@@ -1,0 +1,85 @@
+﻿<footer class="footer">
+    <div class="footer-top">
+        <div class="row">
+            <div class="col-lg-3">
+                <img src="~/img/logo.png" alt="logo" class="footer-logo" />
+                <a href="#" class="footer-link">
+                    Образовательная лицензия
+                </a>
+                <a href="#" class="footer-link">
+                    Политика конфиденциальности
+                </a>
+                <div class="footer-social">
+                    <a href="https://vk.com/kursy_nemeckogo_yazyka_spb" target="_blank">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                    <a href="https://www.instagram.com/_inter.esse_/" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @await Component.InvokeAsync("FooterMenu")
+            </div>
+            <div class="col-lg-2">
+                <script type="text/javascript" src="https://vk.com/js/api/openapi.js?168"></script>
+
+                <!-- VK Widget -->
+                <div id="vk_groups"></div>
+                <script type="text/javascript">
+                    VK.Widgets.Group("vk_groups", { mode: 1, no_cover: 1, width: "200" }, 136374010);
+                </script>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-contact">
+                    <p class="footer-contact-city">
+                        Санкт-Петербург
+                    </p>
+                    <a href="#" class="footer-contact-phone">
+                        (812) 233-23-88
+                    </a>
+                    <a href="#" class="footer-contact-phone">
+                        +7 (911) 008-51-08
+                    </a>
+                    <a href="#" class="footer-contact-email">
+                        interesse-school@mail.ru
+                    </a>
+                    <p class="footer-contact-address">
+                        ул. Введенская, д. 7 <br /> (м. Горьковская, Чкаловская)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4 align-left">
+                    <!--LiveInternet counter-->
+                    <script type="text/javascript">
+                        document.write("<a href='//www.liveinternet.ru/click' " +
+                            "target=_blank><img src='//counter.yadro.ru/hit?t17.3;r" +
+                            escape(document.referrer) + ((typeof (screen) == "undefined") ? "" :
+                                ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
+                                    screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
+                            ";" + Math.random() +
+                            "' alt='' title='LiveInternet: показано число просмотров за 24" +
+                            " часа, посетителей за 24 часа и за сегодня' " +
+                            "border='0' width='88' height='31'><\/a>")
+                    </script><!--/LiveInternet-->
+                </div>
+                <div class="col-4">
+                    &copy; Interesse, @DateTime.Now.Year
+                </div>
+                <div class="col-4">
+                    <p class="created_by">
+                        created by
+                        <a href="http://devresume.tech/msev" target="_blank" class="link created_by-link">
+                            sevdev
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Курсы немецкого языка в СПб";
+    ViewData["Keywords"] = "курсы немецкого, курсы английского, курсы итальянского, курсы испанского";
+    Layout = "_MainLayout";
+}
+
+@await Component.InvokeAsync("HomeCategories")
+
+@await Html.PartialAsync("~/Pages/_TilesPartial.cshtml")
+
+@await Html.PartialAsync("~/Pages/_FeaturesPartial.cshtml")
+
+@await Html.PartialAsync("~/Pages/_AdvantagesPartial.cshtml")
+
+<iframe id="contacts-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4750.944506071616!2d30.29694863174527!3d59.956596176100255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696314719fd8b83%3A0x35c9aaac3a153d35!2sInterEsse!5e0!3m2!1sen!2sru!4v1501792621882" width="230" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"
+            integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw=="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $(".phone").mask("+7 (999) 999-9999");
+        });
+    </script>
+    <script src="~/dist/application.js" asp-append-version="true"></script>
+}

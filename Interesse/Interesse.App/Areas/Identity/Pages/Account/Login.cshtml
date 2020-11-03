@@ -1,0 +1,51 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<section class="section section_margin">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+            <div class="regular_card">
+                <div class="regular_card-actions">
+                    <button type="submit" form="accountForm" class="btn btn-primary">
+                        Войти
+                    </button>
+                    <a asp-page="./Index" class="btn btn-secondary">
+                        Назад
+                    </a>
+                </div>
+                <form id="accountForm" method="post" enctype="multipart/form-data" class="form">
+                    <div class="form-group">
+                        <label asp-for="Input.Email" class="form-label">
+                            Email <span>*</span>
+                        </label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password">
+                            Пароль <span>*</span>
+                        </label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                Запомнить
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
